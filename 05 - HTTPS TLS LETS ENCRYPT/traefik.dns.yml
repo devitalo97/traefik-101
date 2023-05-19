@@ -1,0 +1,41 @@
+################################################################
+# API and dashboard configuration
+################################################################
+api:
+  # Dashboard
+  #
+  #
+  dashboard: true
+  insecure: true
+################################################################
+# Docker configuration backend
+################################################################
+providers:
+  docker:
+    exposedByDefault: false
+################################################################
+# Traefik Logging
+################################################################
+log:
+  level: DEBUG
+
+################################################################
+# Entrypoint
+################################################################
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+
+################################################################
+# Challenege DNS
+################################################################
+certificatesResolvers:
+  dnsResolver:
+    acme:
+      email: dev.italo.souza@gmail.com 
+      storage: /letsencrypt/acme.json
+      dnsChallenge:
+        provider: digitalocean
+        delayBeforeCheck: 0

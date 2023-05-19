@@ -32,7 +32,7 @@ entryPoints:
 # Challenege DNS
 ################################################################
 certificatesResolvers:
-  myresolver:
+  dnsResolver:
     acme:
       email: dev.italo.souza@gmail.com 
       storage: /letsencrypt/acme.json

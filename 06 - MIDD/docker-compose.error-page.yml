@@ -27,7 +27,7 @@ services:
     labels:
       - "traefik.enable=true"
       #routers
-      - "traefik.http.routers.catapp.rule=Host(`soft.hybriddev.de`)"
+      - "traefik.http.routers.catapp.rule=Host(`errorpage.hybriddev.de`)"
       - "traefik.http.routers.catapp.service=catapp"
       - "traefik.http.routers.catapp.entrypoints=websecure"
       - "traefik.http.routers.catapp.tls.certresolver=dnsResolver"

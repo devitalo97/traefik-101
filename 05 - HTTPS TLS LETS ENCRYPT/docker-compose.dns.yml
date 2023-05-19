@@ -32,6 +32,7 @@ services:
       - "traefik.http.routers.catapp.service=catapp"
       - "traefik.http.routers.catapp.entrypoints=websecure"
       - "traefik.http.routers.catapp.tls.certresolver=dnsResolver"
+      - "traefik.http.routers.catapp.middlewares=midd-compress"
       #services
       - "traefik.http.services.catapp.loadbalancer.server.port=5000"
       #midd

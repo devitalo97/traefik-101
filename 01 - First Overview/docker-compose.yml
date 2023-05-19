@@ -1,0 +1,89 @@
+version: '3'
+services:
+  reverse-proxy:
+    container_name: reverse-proxy
+    # The official v2 Traefik docker image
+    image: traefik:v2.10
+    # Enables the web UI and tells Traefik to listen to docker
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedByDefault=false"  # Set to true or false based on your requirements
+      - "--entrypoints.socket.address=:1111"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.iot.address=:1234" # Change port number if needed
+    ports:
+      - "80:80"
+      - "1111:1111"
+      - "1234:1234"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+
+  web:
+    container_name: web
+    build: ./web
+    command: "sh -c 'npm start'"
+    volumes:
+      - ./web:/app/web/
+      - /app/web/node_modules/
+    labels:
+      - "traefik.enable=true"  # Enable Traefik for this service
+      - "traefik.http.routers.web.rule=Host(`web.localhost`)"
+      - "traefik.http.routers.web.entrypoints=web"
+      - "traefik.http.services.web.loadbalancer.server.port=3000"
+    depends_on:
+      - reverse-proxy
+      - socket
+
+  api:
+    container_name: api
+    build: ./api
+    command: "sh -c 'npm run start:dev'"
+    volumes:
+      - ./api:/app/api/
+      - /app/api/node_modules/
+    labels:
+      - "traefik.enable=true"  # Enable Traefik for this service
+      - "traefik.http.routers.api.rule=Host(`api.localhost`)"
+      - "traefik.http.routers.api.entrypoints=web"
+      - "traefik.http.services.api.loadbalancer.server.port=3001"
+    depends_on:
+      - reverse-proxy
+      - socket
+
+  tcp:
+    container_name: tcp
+    build: ./tcp
+    command: "sh -c 'npm run start:dev'"
+    volumes:
+      - ./tcp:/app/tcp/
+      - /app/tcp/node_modules/
+    labels:
+      - "traefik.enable=true"  # Enable Traefik for this service
+      - "traefik.tcp.routers.web.rule=HostSNI(`*`)"  # Match all hostnames
+      - "traefik.tcp.routers.web.entrypoints=iot"  # Use the TCP entrypoint
+      - "traefik.tcp.services.web.loadbalancer.server.port=3002"
+    depends_on:
+      - reverse-proxy
+      - socket
+
+  socket:
+    container_name: socket
+    build: ./socket
+    command: "sh -c 'npm run start:dev'"
+    volumes:
+      - ./socket:/app/socket/
+      - /app/socket/node_modules/
+    labels:
+      - "traefik.enable=true"  # Enable Traefik for this service
+      - "traefik.http.routers.socket.rule=Path(`socket.localhost`)"
+      - "traefik.http.routers.socket.rule=PathPrefix(`/socket.io/`)"
+      - "traefik.http.routers.socket.entrypoints=socket,web"  
+      - "traefik.http.services.socket.loadBalancer.sticky.cookie.name=server_id"
+      - "traefik.http.services.socket.loadBalancer.sticky.cookie.httpOnly=true"
+      - "traefik.http.services.socket.loadbalancer.server.port=3003"
+    depends_on:
+      - reverse-proxy
+

@@ -29,4 +29,7 @@ services:
       - "traefik.http.routers.catapp.service=catapp"
       - "traefik.http.services.catapp.loadbalancer.server.port=5000"
       - "traefik.http.routers.catapp.entrypoints=websecure"
+      - "traefik.http.routers.catapp.tls=true"
       - "traefik.http.routers.catapp.tls.certresolver=myresolver"
+      - "traefik.http.routers.catapp.tls.domains[0].main=hybriddev.de"
+      - "traefik.http.routers.catapp.tls.domains[0].sans=*.hybriddev.de"

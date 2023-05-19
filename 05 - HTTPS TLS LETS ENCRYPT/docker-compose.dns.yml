@@ -20,7 +20,7 @@ services:
        # Mounts the Traefik static configuration inside the Traefik container
       - ./traefik.dns.yml:/etc/traefik/traefik.yml
     environment:
-      - "DO_AUTH_TOKEN=dop_v1_bcd1fb163a121dfc9112d521f7bc5a6849bb77acb117c90f8eef28a96cdd3bac"
+      - "DO_AUTH_TOKEN=bcd1fb163a121dfc9112d521f7bc5a6849bb77acb117c90f8eef28a96cdd3bac"
 
 # Add the catapp service
   catapp:

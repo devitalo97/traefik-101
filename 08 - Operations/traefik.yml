@@ -22,7 +22,6 @@ ping: {}
 providers:
   docker:
     exposedByDefault: false
-    swarmMode: true
 
 ################################################################
 # Traefik Logging -  DEBUG, PANIC, FATAL, ERROR, WARN, and INFO (DEFAULT is ERROR)

@@ -37,7 +37,7 @@ services:
       - "traefik.http.routers.catapp-secure.tls.certresolver=dnsResolver"
       - "traefik.http.routers.catapp-secure.middlewares=midd-compress,midd-error,midd-rate"
       #services
-      - "traefik.http.services.catapp.loadbalancer.server.port=5000"
+      - "traefik.http.services.catapp-secure.loadbalancer.server.port=5000"
       #midd
         # compress
       - "traefik.http.middlewares.midd-compress.compress=true"

@@ -46,8 +46,8 @@ services:
         # rate limit
       - "traefik.http.middlewares.midd-rate.ratelimit.average=4"
         # redirect
-      - "traefik.http.middlewares.midd-redirect.redirectsscheme.scheme=https"
-      - "traefik.http.middlewares.midd-redirect.redirectsscheme.permanent=true"
+      - "traefik.http.middlewares.midd-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.midd-redirect.redirectscheme.permanent=true"
 
 
   error:

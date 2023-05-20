@@ -32,7 +32,7 @@ services:
       - "traefik.http.routers.catapp-secure.rule=Host(`redirect.hybriddev.de`)"
       - "traefik.http.routers.catapp-secure.service=catapp"
       - "traefik.http.routers.catapp-secure.entrypoints=websecure"
-      - "traefik.http.routers.catapp-secure.tls.certresolver=dnsChallenge"
+      - "traefik.http.routers.catapp-secure.tls.certresolver=dnsResolver"
       - "traefik.http.routers.catapp-secure.middlewares=midd-compress,midd-error,midd-rate"
       #services
       - "traefik.http.services.catapp.loadbalancer.server.port=5000"

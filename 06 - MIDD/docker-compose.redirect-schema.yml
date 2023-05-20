@@ -19,6 +19,8 @@ services:
       - ./letsencrypt:/letsencrypt
       # Mounts the Traefik static configuration inside the Traefik container
       - ./traefik.dns.yml:/etc/traefik/traefik.yml
+    env_file:
+      - ./.env
 
   catapp:
     image: mikesir87/cats:1.0

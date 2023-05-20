@@ -31,11 +31,11 @@ entryPoints:
 ################################################################
 # Challenege DNS
 ################################################################
-certificatesResolvers:
-  dnsResolver:
-    acme:
-      email: dev.italo.souza@gmail.com 
-      storage: /letsencrypt/acme.json
-      dnsChallenge:
-        provider: digitalocean
-        delayBeforeCheck: 0
+# certificatesResolvers:
+#   dnsResolver:
+#     acme:
+#       email: dev.italo.souza@gmail.com 
+#       storage: /letsencrypt/acme.json
+#       dnsChallenge:
+#         provider: digitalocean
+#         delayBeforeCheck: 0

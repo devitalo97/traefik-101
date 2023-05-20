@@ -18,17 +18,15 @@ services:
       # Copies the Let's Encrypt certificate locally for ease of backing up
       - ./letsencrypt:/letsencrypt
       # Mounts the Traefik static configuration inside the Traefik container
-      - ./traefik.dns.yml:/etc/traefik/traefik.yml
-    env_file:
-      - ./.env
+      - ./traefik.yml:/etc/traefik/traefik.yml
 
-# Add the catapp service
+  # Add the catapp service
   catapp:
     image: mikesir87/cats:1.0
     labels:
       - "traefik.enable=true"
       #routers
-      - "traefik.http.routers.catapp.rule=Host(`soft.hybriddev.de`)"
+      - "traefik.http.routers.catapp.rule=Host(`soft.localhost`)"
       - "traefik.http.routers.catapp.service=catapp"
       - "traefik.http.routers.catapp.entrypoints=websecure"
       - "traefik.http.routers.catapp.tls.certresolver=dnsResolver"

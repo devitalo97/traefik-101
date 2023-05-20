@@ -28,7 +28,7 @@ services:
       - "traefik.http.routers.catapp.rule=Host(`catapp.localhost`)"
       - "traefik.http.routers.catapp.service=catapp"
       - "traefik.http.routers.catapp.entrypoints=web"
-      - "traefik.http.routers.catapp.middlewares=midd-compress, midd-error"
+      - "traefik.http.routers.catapp.middlewares=midd-compress,midd-error,midd-rate"
       #services
       - "traefik.http.services.catapp.loadbalancer.server.port=5000"
       #midd
@@ -38,6 +38,8 @@ services:
       - "traefik.http.middlewares.midd-error.errors.status=400-599"
       - "traefik.http.middlewares.midd-error.errors.service=error"
       - "traefik.http.middlewares.midd-error.errors.query=/{status}.html"
+        # rate limit
+      - "traefik.http.middlewares.midd-rate.ratelimit.average=4"
 
 
   error:

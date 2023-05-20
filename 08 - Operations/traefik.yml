@@ -28,7 +28,7 @@ providers:
 # Traefik Logging -  DEBUG, PANIC, FATAL, ERROR, WARN, and INFO (DEFAULT is ERROR)
 ################################################################
 log:
-  level: ERROR
+  level: DEBUG
 
 ################################################################
 # Entrypoint
